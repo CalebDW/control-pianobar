@@ -55,11 +55,14 @@ su="$fold/showupcoming"
 stl="$fold/stationlist"
 ip="$fold/isplaying"
 ine="$fold/ignextevent"
+dn="$fold/downloadname"
+dd="$fold/downloaddir"
 
 while read L; do
     k="`echo "$L" | cut -d '=' -f 1`"
     v="`echo "$L" | cut -d '=' -f 2`"
     export "$k=$v"
+		echo "$k=$v" >> "$fold/test"
 done < <(grep -e '^\(title\|artist\|album\|stationName\|songStationName\|pRet\|pRetStr\|wRet\|wRetStr\|songDuration\|songPlayed\|rating\|coverArt\|stationCount\|station[0-9]\+\)=' /dev/stdin) # don't overwrite $1...
 
 [[ "$rating" == 1 ]] && like="(like)"
@@ -106,6 +109,15 @@ Station: $stationName - $songStationName" > "$ds"
 fi
 echo "$artist - $title $like" > "$np"
 
+#change this if you would like to change the format of the songs
+echo "$title - $artist" > "$dn"
+
+if [[ -z $songStationName ]]; then
+	echo "$stationName" > "$dd"
+else 
+	echo "$songStationName" > "$dd"
+fi
+
 case "$1" in
     songstart)
 	   echo "1" > "$ip"
@@ -129,7 +141,14 @@ case "$1" in
 	   if [[ -e "$su" ]]; then
 		  $controlpianobar u 7 &
 		  rm -f "$su"
-	   fi;;
+	   fi
+
+			#uncomment if you want to automatically download every song.
+			#$controlpianobar d
+
+			#uncomment if you want to automatically download only liked songs
+			#if [[ "$rating" == 1 ]];then $controlpianobar d; fi
+			;;
     
     songexplain)
 	   cp "$ds" "$dse"
