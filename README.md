@@ -10,7 +10,7 @@ Download option by CalebDW
 
 
 To use this you need to have the package dsniff and sudo privaleges(to capture traffic on your interface).
-You may need to install the package using this ppa ppa:evarlast/dsniff
+You may need to install the package using this ppa. ppa:evarlast/dsniff
 This is because there is a timeout issue with urlsnarf exiting as soon as it runs.
 
 In order to run this script I recommend adding "<user> ALL = NOPASSWD: /usr/sbin/urlsnarf" to the /etc/sudoers
