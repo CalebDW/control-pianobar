@@ -105,7 +105,7 @@ case $1 in
 
 		if [[ ! -e "`cat $dn`.$ext" ]]; then
 			$notify -t 3000 "Downloading..." "`cat $dn`.$ext to `cat $dd`"
-			wget -q -O "`cat $dn`.m4a" "`cat "$ulog" | tail -n 1 | sed '{ s/^.*\"GET //; s/.HTTP.*$// }' | cat`"
+			wget -q -O "`cat $dn`.m4a" "`cat "$ulog" | tail -n 1 | sed '{ s/^.*\"GET //; s/.HTTP.*$// }' | cat`" &
 			$notify -t 3000 "Download complete." "`cat $dn`.$ext saved to `cat $dd`"
 		else
 			$notify -t 2000 "`cat $dn`.$ext" "Already exists in `cat $dd`"
