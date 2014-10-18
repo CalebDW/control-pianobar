@@ -121,7 +121,7 @@ echo $(filename) > "$dn"
 if [[ -z $songStationName ]]; then
 	echo "$stationName" > "$dd"
 else
-	echo "$songStatonName" > "$dd"
+	echo "$songStationName" > "$dd"
 fi
 
 case "$1" in
